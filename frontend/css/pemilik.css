@@ -1,0 +1,170 @@
+/* ============================================
+   Sinta Cell - Pemilik & Stok Manager CSS
+   ============================================ */
+
+/* ===== PAGE LAYOUT ===== */
+.pm-page { padding: 28px 32px; }
+.pm-page-title { display:flex; justify-content:space-between; align-items:center; margin-bottom:22px; }
+.pm-page-title h1 { font-size:22px; font-weight:800; color:#111; }
+.pm-page-title p  { font-size:13px; color:#666; margin-top:2px; }
+
+/* ===== STAT CARDS ===== */
+.pm-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:22px; }
+.pm-stat  {
+    border-radius:16px; padding:20px 22px;
+    box-shadow:0 4px 18px rgba(0,0,0,.1);
+    display:flex; flex-direction:column; justify-content:space-between;
+    min-height:110px; position:relative; overflow:hidden;
+    background:white;
+}
+.pm-stat::after {
+    content:''; position:absolute; width:100px; height:100px;
+    border-radius:50%; background:rgba(255,255,255,.1);
+    top:-20px; right:-20px;
+}
+
+/* Default (white bg) - text must be dark */
+.pm-stat-info .lbl { font-size:12px; color:#555; margin-bottom:8px; font-weight:600; }
+.pm-stat-info .val { font-size:26px; font-weight:800; color:#111; }
+.pm-stat-icon { font-size:22px; opacity:.85; position:absolute; top:16px; right:20px; z-index:1; }
+.pm-stat-sub  { font-size:11px; color:#777; margin-top:6px; }
+
+/* Colored variants - white text */
+.pm-stat-blue   { background:linear-gradient(135deg,#1a0aff,#4f46e5) !important; }
+.pm-stat-green  { background:linear-gradient(135deg,#16a34a,#22c55e) !important; }
+.pm-stat-red    { background:linear-gradient(135deg,#dc2626,#ef4444) !important; }
+.pm-stat-purple { background:linear-gradient(135deg,#7c3aed,#a855f7) !important; }
+.pm-stat-orange { background:linear-gradient(135deg,#ea580c,#f97316) !important; }
+
+.pm-stat-blue .lbl, .pm-stat-green .lbl, .pm-stat-red .lbl,
+.pm-stat-purple .lbl, .pm-stat-orange .lbl { color:rgba(255,255,255,.85) !important; }
+.pm-stat-blue .val, .pm-stat-green .val, .pm-stat-red .val,
+.pm-stat-purple .val, .pm-stat-orange .val { color:white !important; }
+.pm-stat-blue .pm-stat-icon, .pm-stat-green .pm-stat-icon, .pm-stat-red .pm-stat-icon,
+.pm-stat-purple .pm-stat-icon, .pm-stat-orange .pm-stat-icon { color:white !important; }
+
+.pm-stat-blue .pm-stat-info .lbl,
+.pm-stat-green .pm-stat-info .lbl,
+.pm-stat-red .pm-stat-info .lbl,
+.pm-stat-purple .pm-stat-info .lbl,
+.pm-stat-orange .pm-stat-info .lbl { color:rgba(255,255,255,.85) !important; }
+
+.pm-stat-blue .pm-stat-info .val,
+.pm-stat-green .pm-stat-info .val,
+.pm-stat-red .pm-stat-info .val,
+.pm-stat-purple .pm-stat-info .val,
+.pm-stat-orange .pm-stat-info .val { color:white !important; }
+
+.pm-stat-blue .pm-stat-sub,
+.pm-stat-green .pm-stat-sub,
+.pm-stat-red .pm-stat-sub,
+.pm-stat-purple .pm-stat-sub,
+.pm-stat-orange .pm-stat-sub { color:rgba(255,255,255,.75) !important; }
+
+/* Color helpers for white-bg cards */
+.val-blue   { color:#1a0aff !important; }
+.val-green  { color:#16a34a !important; }
+.val-purple { color:#7c3aed !important; }
+.val-red    { color:#dc2626 !important; }
+.val-orange { color:#ea580c !important; }
+
+/* ===== SEARCH BAR ===== */
+.pm-search-box {
+    background:white; border-radius:12px; padding:10px 16px;
+    display:flex; align-items:center; gap:10px;
+    box-shadow:0 2px 10px rgba(0,0,0,.05); border:1.5px solid #eee;
+    margin-bottom:16px;
+}
+.pm-search-box input { flex:1; border:none; outline:none; font-size:13px; font-family:Arial,sans-serif; }
+
+/* ===== TABLE ===== */
+.pm-table-card { background:white; border-radius:14px; overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,.06); }
+.pm-table { width:100%; border-collapse:collapse; }
+.pm-table thead tr { background:#1a0aff; }
+.pm-table th { padding:13px 16px; color:white; text-align:left; font-size:13px; font-weight:700; }
+.pm-table td { padding:12px 16px; font-size:13px; border-bottom:1px solid #f0f2ff; vertical-align:middle; color:#222; }
+.pm-table tr:last-child td { border-bottom:none; }
+.pm-table tr:hover td { background:#fafbff; }
+
+/* ===== BADGES ===== */
+.badge-cat  { background:#e8edff; color:#1a0aff; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+.badge-ok   { background:#e8f5e9; color:#16a34a; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+.badge-warn { background:#ffeaea; color:#dc2626; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+
+/* ===== MARGIN ===== */
+.margin-plus { color:#16a34a; font-weight:700; font-size:12px; }
+
+/* ===== ACTION BUTTONS ===== */
+.act-btn-edit    { background:#1a0aff; color:white; border:none; padding:7px 10px; border-radius:8px; cursor:pointer; font-size:14px; transition:all .2s; }
+.act-btn-edit:hover { background:#1500e0; }
+.act-btn-del     { background:#dc3545; color:white; border:none; padding:7px 10px; border-radius:8px; cursor:pointer; font-size:14px; transition:all .2s; margin-left:4px; }
+.act-btn-del:hover  { background:#c82333; }
+.act-btn-restock { background:#dc3545; color:white; border:none; padding:7px 14px; border-radius:20px; cursor:pointer; font-size:12px; font-weight:700; transition:all .2s; }
+.act-btn-restock:hover { background:#c82333; }
+.act-btn-update  { background:#1a0aff; color:white; border:none; padding:7px 14px; border-radius:20px; cursor:pointer; font-size:12px; font-weight:700; transition:all .2s; }
+.act-btn-update:hover  { background:#1500e0; }
+
+/* ===== ADD BUTTON ===== */
+.pm-add-btn { background:#1a0aff; color:white; border:none; padding:11px 20px; border-radius:12px; font-size:13px; font-weight:700; cursor:pointer; transition:all .2s; display:inline-flex; align-items:center; gap:6px; }
+.pm-add-btn:hover { background:#1500e0; }
+
+/* ===== FILTER TABS (stok) ===== */
+.pm-filter-tabs { display:flex; gap:8px; margin-bottom:14px; }
+.pm-ftab { padding:8px 18px; border-radius:20px; border:1.5px solid #e0e0e0; background:white; font-size:13px; font-weight:600; cursor:pointer; transition:all .2s; text-decoration:none; color:#333; }
+.pm-ftab.active-blue  { background:#1a0aff; color:white; border-color:#1a0aff; }
+.pm-ftab.active-red   { background:#dc3545; color:white; border-color:#dc3545; }
+.pm-ftab.active-green { background:#28a745; color:white; border-color:#28a745; }
+
+/* ===== ALERT BANNER ===== */
+.pm-alert-banner {
+    background:linear-gradient(135deg,#dc3545,#fd7e14);
+    color:white; border-radius:14px; padding:18px 24px;
+    display:flex; align-items:center; gap:16px; margin-bottom:20px;
+}
+.pm-alert-banner .alert-icon  { font-size:28px; }
+.pm-alert-banner .alert-title { font-size:17px; font-weight:800; }
+.pm-alert-banner .alert-sub   { font-size:13px; opacity:.9; margin-top:2px; }
+
+/* ===== PRINT BUTTON ===== */
+.pm-print-btn { background:#28a745; color:white; border:none; padding:10px 18px; border-radius:10px; font-size:13px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:6px; transition:all .2s; }
+.pm-print-btn:hover { background:#218838; }
+
+/* ===== LAPORAN TABS - full width stretch ===== */
+.lap-tabs {
+    display:flex; gap:0;
+    background:white; padding:5px;
+    border-radius:12px; width:100%;
+    margin-bottom:18px;
+    box-shadow:0 2px 10px rgba(0,0,0,.06);
+}
+.lap-tab {
+    flex:1; padding:10px 18px; border-radius:8px;
+    font-size:13px; font-weight:700; cursor:pointer;
+    text-decoration:none; color:#555; transition:all .2s;
+    border:none; background:transparent;
+    text-align:center; display:flex; align-items:center; justify-content:center; gap:6px;
+}
+.lap-tab:hover:not(.active) { background:#f0f2ff; color:#1a0aff; }
+.lap-tab.active { background:#1a0aff; color:white; }
+
+/* ===== FORM ===== */
+.pm-form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+.pm-form-group { margin-bottom:14px; }
+.pm-form-lbl { display:block; font-size:12px; font-weight:700; color:#444; margin-bottom:5px; }
+.pm-form-lbl.req::after { content:' *'; color:#dc3545; }
+.pm-form-ctrl { width:100%; padding:10px 12px; border:1.5px solid #e5e7ff; border-radius:10px; font-size:13px; font-family:Arial,sans-serif; transition:all .2s; }
+.pm-form-ctrl:focus { outline:none; border-color:#1a0aff; box-shadow:0 0 0 3px rgba(26,10,255,.07); }
+
+/* ===== PRINT STYLES ===== */
+@media print {
+    .topnav, .profile-panel, .profile-overlay,
+    .pm-add-btn, .pm-print-btn,
+    .act-btn-edit, .act-btn-del, .act-btn-restock, .act-btn-update,
+    .pm-filter-tabs, .pm-search-box, .modal-overlay,
+    .lap-tabs { display:none !important; }
+    .pm-table-card { box-shadow:none; border:1px solid #ddd; }
+    .pm-page { padding:10px; }
+    body { background:white; }
+    .pm-stat { box-shadow:none; border:1px solid #ddd; }
+    canvas { max-height:180px !important; }
+}
