@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../backend/config.php';
 requireLogin();
-requireRole(['kasir','pemilik']);
+requireRole(['kasir','pemilik', 'pengelola_stok']);
 
 $userId = (int)$_SESSION['user_id'];
 
@@ -15,7 +15,9 @@ if ($_SERVER['REQUEST_METHOD']==='POST' && ($_POST['action']??'')==='update') {
 }
 
 // Redirect back ke halaman sebelumnya
-$ref = $_SERVER['HTTP_REFERER'] ?? 'kasir.php';
+$role = $_SESSION['role'] ?? 'kasir';
+$fallback = $role === 'pengelola_stok' ? 'stok_manager.php' : ($role === 'pemilik' ? '../pages/pemilik_barang.php' : 'kasir.php');
+$ref = $_SERVER['HTTP_REFERER'] ?? $fallback;
 header('Location: '.$ref);
 exit;
 ?>

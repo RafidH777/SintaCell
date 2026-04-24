@@ -25,7 +25,6 @@ $jabatanLabel= ['pemilik'=>'Pemilik','kasir'=>'Cashier','pengelola_stok'=>'Penge
             <div class="logo-icon">👤</div>
             <div>
                 <div class="logo-name">Sinta Cell</div>
-                <div class="logo-sub">Toko Handphone</div>
             </div>
         </div>
     </div>

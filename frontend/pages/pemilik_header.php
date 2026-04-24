@@ -25,7 +25,8 @@ $ud          = $conn->query("SELECT * FROM users WHERE id=$uid")->fetch_assoc();
     <div class="topnav-left">
         <div class="topnav-logo">
             <div class="logo-icon">👤</div>
-            <div><div class="logo-name">Sinta Cell</div><div class="logo-sub">Toko Handphone</div></div>
+            <div><div class="logo-name">Sinta Cell</div>
+            </div>
         </div>
     </div>
     <div class="topnav-menu">

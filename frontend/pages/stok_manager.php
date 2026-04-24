@@ -37,7 +37,8 @@ $jabatanLabel = ['pemilik'=>'Pemilik','kasir'=>'Cashier','pengelola_stok'=>'Peng
     <div class="topnav-left">
         <div class="topnav-logo">
             <div class="logo-icon">👤</div>
-            <div><div class="logo-name">Sinta Cell</div><div class="logo-sub">Toko Handphone</div></div>
+            <div><div class="logo-name">Sinta Cell</div>
+        </div>
         </div>
     </div>
     <div class="topnav-menu"></div><!-- empty center -->
