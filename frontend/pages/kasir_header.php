@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../backend/config.php';
 requireLogin();
-requireRole(['kasir','pemilik']);
+requireRole(['kasir']);
 
 $user        = currentUser();
 $currentPage = basename($_SERVER['PHP_SELF']);

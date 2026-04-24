@@ -344,7 +344,7 @@ body { font-family: Arial, sans-serif; background: var(--gray-bg); color: #222; 
 
 .order-table-wrap { background:white; border-radius:16px; box-shadow:var(--shadow); overflow:hidden; }
 .order-table { width:100%; border-collapse:collapse; }
-.order-table thead tr { background:#6c63ff; }
+.order-table thead tr { background:#1a0aff; }
 .order-table th { padding:14px 18px; color:white; text-align:left; font-size:13px; font-weight:700; }
 .order-table td { padding:13px 18px; font-size:13px; border-bottom:1px solid var(--border); }
 .order-table tr:last-child td { border-bottom:none; }
