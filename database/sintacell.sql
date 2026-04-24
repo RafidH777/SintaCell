@@ -3,8 +3,8 @@
 -- Sistem Informasi Sinta Cell
 -- ============================================
 
-CREATE DATABASE IF NOT EXISTS sintacell CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE sintacell;
+-- CREATE DATABASE IF NOT EXISTS sintacell CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- USE sintacell;
 
 -- ============================================
 -- TABLE: users
