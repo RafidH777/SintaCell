@@ -65,7 +65,12 @@ include 'kasir_header.php';
             ?>
             <div class="product-card" data-nama="<?= strtolower(htmlspecialchars($b['nama'])) ?>">
                 <div class="product-card-img">
-                    📦
+    <?php if(!empty($b['gambar'])): ?>
+        <img src="../../uploads/barang/<?= htmlspecialchars($b['gambar']) ?>"
+             style="width:100%;height:100%;object-fit:cover;border-radius:14px 14px 0 0;">
+    <?php else: ?>
+        📦
+    <?php endif; ?> 
                     <button class="product-card-info-btn" onclick="event.stopPropagation();" title="<?= htmlspecialchars($b['nama']) ?> | Rp <?= number_format($b['harga_jual']) ?>">i</button>
                 </div>
                 <div class="product-card-body">

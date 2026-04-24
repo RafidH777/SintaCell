@@ -51,7 +51,7 @@ include 'pemilik_header.php';
         <table class="pm-table">
             <thead>
                 <tr>
-                    <th>Kode</th><th>Nama Barang</th><th>Kategori</th>
+                    <th>Gambar</th><th>Kode</th><th>Nama Barang</th><th>Kategori</th>
                     <th>Harga Beli</th><th>Harga Jual</th><th>Margin</th>
                     <th>Stok</th><th>Min. Stok</th><th>Aksi</th>
                 </tr>
@@ -63,6 +63,14 @@ include 'pemilik_header.php';
                 $stokRendah = $b['stok'] < $b['stok_minimal'];
             ?>
             <tr style="<?= $stokRendah ? 'background:#fff8f8;' : '' ?>">
+                <td>
+                    <?php if(!empty($b['gambar'])): ?>
+                        <img src="../../uploads/barang/<?= htmlspecialchars($b['gambar']) ?>"
+                             style="width:48px;height:48px;object-fit:cover;border-radius:8px;">
+                    <?php else: ?>
+                        <span style="font-size:28px;">📦</span>
+                    <?php endif; ?>
+                </td>
                 <td class="fw-bold"><?= htmlspecialchars($b['kode']) ?></td>
                 <td><?= htmlspecialchars($b['nama']) ?></td>
                 <td><span class="badge-cat"><?= htmlspecialchars($b['kategori']??'-') ?></span></td>
@@ -103,6 +111,11 @@ include 'pemilik_header.php';
                 <div class="pm-form-group"><label class="pm-form-lbl req">Stok Awal</label><input type="number" class="pm-form-ctrl" name="stok" min="0" value="0" required></div>
                 <div class="pm-form-group"><label class="pm-form-lbl req">Stok Minimal</label><input type="number" class="pm-form-ctrl" name="stok_minimal" min="0" value="10" required></div>
             </div>
+            <div class="pm-form-group">
+                <label class="pm-form-lbl">Gambar Barang</label>
+                <input type="file" class="pm-form-ctrl" id="inputGambarTambah" accept="image/*" onchange="previewGambar('prevTambah',this)">
+                <img id="prevTambah" src="" style="display:none;width:80px;height:80px;object-fit:cover;border-radius:8px;margin-top:6px;">
+            </div>
         </div>
         <div class="modal-ft"><button type="button" class="modal-btn-sec" onclick="closeModal('modalTambah')">Batal</button><button type="submit" class="modal-btn-prim">+ Tambah Barang</button></div>
         </form>
@@ -132,6 +145,11 @@ include 'pemilik_header.php';
                 <div class="pm-form-group"><label class="pm-form-lbl req">Stok Minimal</label><input type="number" class="pm-form-ctrl" name="stok_minimal" id="editSM" min="0" required></div>
             </div>
             <div id="marginInfo" style="background:#e8f5e9;border-radius:8px;padding:10px 14px;font-size:13px;"></div>
+            <div class="pm-form-group" style="margin-top:12px;">
+                <label class="pm-form-lbl">Gambar Barang</label>
+                <img id="prevEdit" src="" style="display:none;width:80px;height:80px;object-fit:cover;border-radius:8px;margin-bottom:6px;display:block;">
+                <input type="file" class="pm-form-ctrl" id="inputGambarEdit" accept="image/*" onchange="previewGambar('prevEdit',this)">
+            </div>
         </div>
         <div class="modal-ft"><button type="button" class="modal-btn-sec" onclick="closeModal('modalEdit')">Batal</button><button type="submit" class="modal-btn-prim">💾 Simpan</button></div>
         </form>
@@ -148,6 +166,10 @@ function editBarang(b){
     document.getElementById('editHJ').value=b.harga_jual;
     document.getElementById('editStok').value=b.stok;
     document.getElementById('editSM').value=b.stok_minimal;
+    // Tampilkan gambar lama jika ada
+    const prevEdit = document.getElementById('prevEdit');
+    if(b.gambar){ prevEdit.src='../../uploads/barang/'+b.gambar; prevEdit.style.display='block'; }
+    else { prevEdit.style.display='none'; }
     calcMargin(); openModal('modalEdit');
 }
 function calcMargin(){
@@ -156,12 +178,35 @@ function calcMargin(){
     const m=hj>0?((hj-hb)/hj*100).toFixed(1):0;
     document.getElementById('marginInfo').innerHTML=`Margin: <strong style="color:#28a745">Rp ${(hj-hb).toLocaleString('id-ID')},- (${m}%)</strong>`;
 }
-async function submitBarang(e,mode){
+function previewGambar(previewId, input){
+    if(!input.files[0]) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+        const img = document.getElementById(previewId);
+        img.src = e.target.result;
+        img.style.display = 'block';
+    };
+    reader.readAsDataURL(input.files[0]);
+}
+async function submitBarang(e, mode){
     e.preventDefault();
-    const data=Object.fromEntries(new FormData(e.target)); data.action=mode;
-    const res=await fetch('../../backend/api/barang.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
-    const r=await res.json();
-    if(r.success){showToast(r.message);setTimeout(()=>location.reload(),800);}
+    const data = Object.fromEntries(new FormData(e.target));
+    data.action = mode;
+
+    // Upload gambar dulu jika ada
+    const fileInput = document.getElementById(mode==='tambah' ? 'inputGambarTambah' : 'inputGambarEdit');
+    if(fileInput && fileInput.files[0]){
+        const fd = new FormData();
+        fd.append('gambar', fileInput.files[0]);
+        const upRes = await fetch('../../backend/api/barang.php', {method:'POST', body:fd});
+        const upData = await upRes.json();
+        if(upData.success) data.gambar = upData.data.nama_file;
+        else { showToast('Gagal upload gambar','error'); return; }
+    }
+
+    const res = await fetch('../../backend/api/barang.php', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)});
+    const r = await res.json();
+    if(r.success){ showToast(r.message); setTimeout(()=>location.reload(), 800); }
     else showToast(r.message||'Gagal','error');
 }
 async function hapusBarang(id,nama){
