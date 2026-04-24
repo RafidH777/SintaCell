@@ -3,7 +3,7 @@ $pageTitle = 'Kasir - Sinta Cell';
 $extraHead = '<style>.page-content{overflow:hidden;}</style>';
 require_once __DIR__ . '/../../backend/config.php';
 requireLogin();
-requireRole(['kasir','pemilik']);
+requireRole(['kasir']);
 
 $barangList = $conn->query("SELECT b.*, k.nama kategori FROM barang b LEFT JOIN kategori k ON b.kategori_id=k.id WHERE b.stok > 0 ORDER BY b.nama");
 $riwayat    = $conn->query("SELECT t.*, u.nama kasir_nama,
