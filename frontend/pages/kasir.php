@@ -79,7 +79,7 @@ include 'kasir_header.php';
                     <div class="product-card-footer">
                         <div class="product-card-price">Rp <?= number_format($b['harga_jual'], 0, ',', '.') ?></div>
                         <button class="product-card-add"
-                            onclick="addToCart(<?= $b['id'] ?>,'<?= addslashes(htmlspecialchars($b['nama'])) ?>',<?= $b['harga_jual'] ?>,<?= $b['stok'] ?>)">+</button>
+                            onclick="addToCart(<?= $b['id'] ?>,'<?= addslashes(htmlspecialchars($b['nama'])) ?>',<?= $b['harga_jual'] ?>,<?= $b['stok'] ?>,'<?= htmlspecialchars($b['gambar'] ?? '') ?>')">+</button>
                     </div>
                 </div>
             </div>
@@ -196,9 +196,9 @@ include 'kasir_header.php';
 <script>
 let cart={};
 function numFmt(n){return Math.round(n).toLocaleString('id-ID');}
-function addToCart(id,nama,harga,stok){
+function addToCart(id,nama,harga,stok,gambar=''){
     if(cart[id]){if(cart[id].qty>=stok){showToast('Stok tidak cukup!','error');return;}cart[id].qty++;}
-    else cart[id]={id,nama,harga,qty:1,stok};
+    else cart[id]={id,nama,harga,qty:1,stok,gambar};
     renderCart();
 }
 function removeFromCart(id){if(cart[id]){cart[id].qty--;if(cart[id].qty<=0)delete cart[id];}renderCart();}
@@ -208,7 +208,7 @@ function renderCart(){
     if(!keys.length){body.innerHTML='<div class="empty-state"><div class="empty-state-icon">🛒</div><p>Belum ada item dipilih</p></div>';updateTotal();return;}
     let html='';
     keys.forEach(id=>{const i=cart[id];html+=`<div class="order-item-card">
-        <div class="order-item-thumb">📦</div>
+        <div class="order-item-thumb">${i.gambar ? `<img src="../../uploads/barang/${i.gambar}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">` : '📦'}</div>
         <div class="order-item-info">
             <div class="order-item-name">${i.nama}</div>
             <div class="order-item-stok">Sisa Stok : ${i.stok-i.qty}</div>
